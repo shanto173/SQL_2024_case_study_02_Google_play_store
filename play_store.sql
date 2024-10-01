@@ -154,7 +154,7 @@ from t1
 join t2 
 on t1.Category = t2.Category;
 
-
+-- question 5
 
 
 
