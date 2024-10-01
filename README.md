@@ -62,7 +62,7 @@ alter table playstore
 modify column Price integer
 ;
 ```
-![Cleaning price column](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/cleaning_price_column.png)
+![Cleaning price column](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/cleaning_price_column.png)
 
 
 ### Dropping null values from dataset
