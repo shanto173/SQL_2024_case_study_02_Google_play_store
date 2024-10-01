@@ -134,10 +134,29 @@ MODIFY COLUMN Last_Updated DATETIME;
 
 
 
+## Question 1. You're working as a market analyst for a mobile app development company. Your task is to identify the most promising categories (TOP 5) for launching new free apps based on their average ratings.
 
 
+```SQL
+select Category,round(avg(rating),2) as 'avg_rating' from playstore 
+
+group by Category order by avg_rating desc limit 5;
+
+```
+![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/1.png)
 
 
+## Question 2. As a business strategist for a mobile app company, your objective is to pinpoint the three categories that generate the most revenue from paid apps. This calculation is based on the product of the app price and its number of installations.
+
+
+```SQL
+select Category,round(avg(revenue),2) 'avg_revenue' from (
+
+select *,(installs*Price) as 'Revenue' from playstore
+) t group by Category order by avg_revenue  desc;
+
+```
+![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/2.png)
 
 
 
