@@ -132,9 +132,9 @@ MODIFY COLUMN Last_Updated DATETIME;
 
 
 
+## SQL case study question answer
 
-
-## Question 1. You're working as a market analyst for a mobile app development company. Your task is to identify the most promising categories (TOP 5) for launching new free apps based on their average ratings.
+### Question 1. You're working as a market analyst for a mobile app development company. Your task is to identify the most promising categories (TOP 5) for launching new free apps based on their average ratings.
 
 
 ```SQL
@@ -146,7 +146,7 @@ group by Category order by avg_rating desc limit 5;
 ![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/1.png)
 
 
-## Question 2. As a business strategist for a mobile app company, your objective is to pinpoint the three categories that generate the most revenue from paid apps. This calculation is based on the product of the app price and its number of installations.
+### Question 2. As a business strategist for a mobile app company, your objective is to pinpoint the three categories that generate the most revenue from paid apps. This calculation is based on the product of the app price and its number of installations.
 
 
 ```SQL
@@ -160,7 +160,16 @@ select *,(installs*Price) as 'Revenue' from playstore
 
 
 
+### Question 2. As a data analyst for a gaming company, you're tasked with calculating the percentage of games within each category. This information will help the company understand the distribution of gaming apps across different categories.
 
+```SQL
+select *, (total_apps/(select count(*) from playstore))*100 as 'category_percentage' from (
+select Category,count(*) 'total_apps' from playstore
+group by Category
+)t order by Category_percentage desc;
+
+```
+![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/3.png)
 
 
 
