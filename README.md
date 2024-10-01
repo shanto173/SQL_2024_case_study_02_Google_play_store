@@ -156,11 +156,11 @@ select *,(installs*Price) as 'Revenue' from playstore
 ) t group by Category order by avg_revenue  desc;
 
 ```
-![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/2.png)
+![Question 2](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/2.png)
 
 
 
-### Question 2. As a data analyst for a gaming company, you're tasked with calculating the percentage of games within each category. This information will help the company understand the distribution of gaming apps across different categories.
+### Question 3. As a data analyst for a gaming company, you're tasked with calculating the percentage of games within each category. This information will help the company understand the distribution of gaming apps across different categories.
 
 ```SQL
 select *, (total_apps/(select count(*) from playstore))*100 as 'category_percentage' from (
@@ -169,11 +169,34 @@ group by Category
 )t order by Category_percentage desc;
 
 ```
-![Question 1](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/3.png)
+![Question 3](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/3.png)
 
 
 
+### Question 4. As a data analyst at a mobile app-focused market research firm you’ll recommend whether the company should develop paid or free apps for each category based on the ratings of that category.
 
+```SQL
+with t1 as (
+select Category,round(avg(Rating),2) 'avg_rating_free' from playstore where Type = 'Free'
+group by Category
+),
+t2 as (
+select Category,round(avg(Rating),2) 'avg_rating_paid' from playstore where Type = 'Paid'
+group by category
+)
+
+
+select t1.category,avg_rating_free,avg_rating_paid,
+case 
+	when avg_rating_free > avg_rating_paid then 'made_free_apps'
+    else 'made_paid_apps'
+end as 'suggestion'
+from t1
+join t2 
+on t1.Category = t2.Category;
+
+```
+![Question 4](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/4.png)
 
 
 
