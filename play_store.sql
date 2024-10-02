@@ -270,6 +270,39 @@ select round(@numerator/sqrt(@deno_1*@deno_2),2) as corrletion;
 
 
 
+/*
+
+Your boss noticed  that some rows in genres columns have multiple genres in them, which was creating issue 
+when developing the  recommender system from the data he/she assigned 
+you the task to clean the genres column and make two genres out of it, 
+rows that have only one genre will have other column as blank
+
+
+*/
+
+
+alter table playstore
+add column genre_1 varchar(255) after Genres,
+add column genre_2 varchar(255) after genre_1;
+
+
+update playstore t1
+set genre_1 = substring_index(Genres,';',1) ;
+
+
+update playstore t1
+set genre_2 = case 
+	when genres = substring_index(Genres,';',-1) then null 
+    else substring_index(Genres,';',-1)
+end;
+
+
+
+
+
+
+
+
 
 
 
