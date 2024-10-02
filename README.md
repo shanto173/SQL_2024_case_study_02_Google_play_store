@@ -378,7 +378,25 @@ SELECT * FROM play;
 
 
 
+### Question 9 Difference Between "Duration Time" and "Fetch Time" in MySQL Workbench
 
+In MySQL Workbench, **Duration Time** and **Fetch Time** refer to different phases of executing a query:
+
+#### 1. **Duration Time**:
+   - **Definition**: This represents the total time it takes for MySQL to process the query and prepare the results, including query parsing, optimization, and execution on the server side.
+   - **Purpose**: It indicates how long the server took to generate the results, but it does not include the time required to retrieve the results from the server.
+   - **Example**: If you run a `SELECT` query that takes 1 second to search the database and prepare the result, the Duration Time will be 1 second.
+
+#### 2. **Fetch Time**:
+   - **Definition**: This is the time spent fetching the result set from the MySQL server to the MySQL Workbench client (the actual transfer of data from the server to your local machine).
+   - **Purpose**: Fetch Time indicates how long it takes to retrieve and transfer the result rows, particularly important when dealing with large datasets.
+   - **Example**: After MySQL has executed the query, if it takes 0.5 seconds to send the data to your machine, the Fetch Time will be 0.5 seconds.
+
+#### Summary:
+- **Duration Time**: The time taken by MySQL to execute and prepare the query results on the server.
+- **Fetch Time**: The time taken to transfer the result set from the server to the client (MySQL Workbench). 
+
+Both metrics together help you understand how long a query takes from execution to result retrieval.
 
 
 
