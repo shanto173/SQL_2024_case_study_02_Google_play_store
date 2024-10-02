@@ -201,8 +201,69 @@ on t1.Category = t2.Category;
 
 
 
+ 
+### Question 5. As a database administrator, your databases have been hacked and hackers are changing the price of certain apps in the database. While it is taking some time for the IT team to neutralize the hack, you, as a responsible manager, don't want your data to be changed without tracking. You decide to implement a measure where any changes in the price can be recorded. The goal is to log the changes made to the `Price` field by the hackers.
+
+### Solution: Implementing Triggers
+
+To tackle this problem, we will use **SQL triggers** that will log any changes to the `Price` field of the `playstore` dataset into a separate table for future auditing.
+
+### Steps:
+
+1. **Create a Table for Logging Price Changes**  
+   We'll create a table called `pricechagelog` to store information on each price change, including the old price, new price, app name, the type of operation (in this case, an update), and the timestamp of the change.
+
+   ```SQL
+   CREATE TABLE pricechagelog (
+       app VARCHAR(255),
+       old_price DECIMAL(10, 2),
+       new_price DECIMAL(10, 2),
+       operation_type VARCHAR(255),
+       operation_date TIMESTAMP
+   );
+   
+2. **Make a Duplicate Database Table for Experimentation**  
+   Since we don’t want to change the original `playstore` dataset, we create a duplicate table called `play` and insert all data from `playstore`.
+
+   ```SQL
+	  CREATE TABLE play LIKE playstore;
+	
+	INSERT INTO play 
+	SELECT * FROM playstore;
+
+   );
+
+3. **Create the Trigger for Price Changes**  
+   We create an **AFTER UPDATE** trigger on the `play` table that automatically logs any changes to the `Price` field into the `pricechagelog` table.
+
+   ```SQL
+	 DELIMITER //
+
+	CREATE TRIGGER price_change_log
+	AFTER UPDATE 
+	ON play 
+	FOR EACH ROW
+	BEGIN 
+	    INSERT INTO pricechagelog(app, old_price, new_price, operation_type, operation_date) 
+	    VALUES (NEW.app, OLD.price, NEW.price, 'update', CURRENT_TIMESTAMP);
+	END;
+	
+	// DELIMITER ;
 
 
+   );
+
+4. **Testing the Trigger**  
+   To test the trigger, we perform an update on the `Pric`e field of the `play` table and check if the change is logged correctly in the `pricechagelog` table.
+   ```SQL
+	 UPDATE play t1
+	SET price = 40 
+	WHERE `index` = 0;
+	
+	SELECT * FROM play;
+
+   );
+![Question 5](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/5.png)
 
 
 
