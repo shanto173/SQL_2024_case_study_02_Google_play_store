@@ -290,7 +290,7 @@ SELECT * FROM play;
 
 
 
-### Question 7. s a data person you are assigned the task of investigating the correlation between two numeric factors: app ratings and the quantity of reviews.
+### Question 7. as a data person you are assigned the task of investigating the correlation between two numeric factors: app ratings and the quantity of reviews.
 
 
 
@@ -339,7 +339,41 @@ SELECT * FROM play;
 
 
 
+### Question 8. Your boss noticed that some rows in the `Genres` column had multiple genres, which was causing issues when developing the recommender system. You were tasked with cleaning the `Genres` column by splitting it into two separate columns: `genre_1` and `genre_2`. Rows with only one genre will have the `genre_2` column left blank.
 
+
+
+### Steps:
+
+1. **Add New Genre Columns**
+   We first added two new columns, `genre_1` and `genre_2`, to the `playstore` table.
+
+   ```SQL
+	  ALTER TABLE playstore
+	ADD COLUMN genre_1 VARCHAR(255) AFTER Genres,
+	ADD COLUMN genre_2 VARCHAR(255) AFTER genre_1;
+
+
+   
+3. **Step 2:  Populate genre_1 with the First Genre**  
+   
+
+   ```SQL
+	 UPDATE playstore t1
+	SET genre_1 = SUBSTRING_INDEX(Genres, ';', 1);
+
+
+4. **Step 3: Populate genre_2 with the Second Genre or Leave it Blank**  
+
+   ```SQL
+	UPDATE playstore t1
+	SET genre_2 = CASE 
+	    WHEN Genres = SUBSTRING_INDEX(Genres, ';', -1) THEN NULL 
+	    ELSE SUBSTRING_INDEX(Genres, ';', -1)
+	END;
+
+
+![Question 8](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/8.png)
 
 
 
