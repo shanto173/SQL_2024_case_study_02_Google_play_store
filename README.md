@@ -12,7 +12,26 @@
    5. [Dropping Null Values](#5-dropping-null-values)
    6. [Changing Column Names](#6-column-name-change)
    7. [Datetime Column Reformatting](#7-datetime-column-reformatting)
-5. [Conclusion](#conclusion)
+
+
+
+5 [SQL Case Study](#sql-case-study-question-answer)
+- [Question 1: Market Analyst Task](#question-1-youre-working-as-a-market-analyst-for-a-mobile-app-development-company-your-task-is-to-identify-the-most-promising-categories-top-5-for-launching-new-free-apps-based-on-their-average-ratings)
+- [Question 2: Revenue Analysis](#question-2-as-a-business-strategist-for-a-mobile-app-company-your-objective-is-to-pinpoint-the-three-categories-that-generate-the-most-revenue-from-paid-apps-this-calculation-is-based-on-the-product-of-the-app-price-and-its-number-of-installations)
+- [Question 3: Gaming Category Percentage](#question-3-as-a-data-analyst-for-a-gaming-company-youre-tasked-with-calculating-the-percentage-of-games-within-each-category-this-information-will-help-the-company-understand-the-distribution-of-gaming-apps-across-different-categories)
+- [Question 4: Paid vs Free Apps Recommendation](#question-4-as-a-data-analyst-at-a-mobile-app-focused-market-research-firm-youll-recommend-whether-the-company-should-develop-paid-or-free-apps-for-each-category-based-on-the-ratings-of-that-category)
+- [Question 5: Tracking Price Changes](#question-5-as-a-database-administrator-your-databases-have-been-hacked-and-hackers-are-changing-the-price-of-certain-apps-in-the-database-while-it-is-taking-some-time-for-the-it-team-to-neutralize-the-hack-you-as-a-responsible-manager-dont-want-your-data-to-be-changed-without-tracking-you-decide-to-implement-a-measure-where-any-changes-in-the-price-can-be-recorded-the-goal-is-to-log-the-changes-made-to-the-price-field-by-the-hackers)
+  - [Solution: Triggers](#solution-implementing-triggers)
+  - [Steps](#steps)
+- [Question 6: Restoring Correct Data](#question-6-your-it-team-has-neutralized-the-threat-however-hackers-have-made-some-changes-in-the-prices-since-you-had-measures-in-place-to-log-the-changes-you-can-now-restore-the-correct-data-into-the-database)
+- [Question 7: Correlation Investigation](#question-7-as-a-data-person-you-are-assigned-the-task-of-investigating-the-correlation-between-two-numeric-factors-app-ratings-and-the-quantity-of-reviews)
+  - [Steps](#steps-1)
+- [Question 8: Cleaning Genres Column](#question-8-your-boss-noticed-that-some-rows-in-the-genres-column-had-multiple-genres-which-was-causing-issues-when-developing-the-recommender-system-you-were-tasked-with-cleaning-the-genres-column-by-splitting-it-into-two-separate-columns-genre_1-and-genre_2-rows-with-only-one-genre-will-have-the-genre_2-column-left-blank)
+- [Question 9: Duration vs Fetch Time](#question-9-difference-between-duration-time-and-fetch-time-in-mysql-workbench)
+  - [Duration Time](#1-duration-time)
+  - [Fetch Time](#2-fetch-time)
+  - [Summary](#summary)
+
 
 ---
 
