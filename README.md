@@ -220,7 +220,7 @@ To tackle this problem, we will use **SQL triggers** that will log any changes t
        new_price DECIMAL(10, 2),
        operation_type VARCHAR(255),
        operation_date TIMESTAMP
-   );
+   
    
 2. **Make a Duplicate Database Table for Experimentation**  
    Since we don’t want to change the original `playstore` dataset, we create a duplicate table called `play` and insert all data from `playstore`.
@@ -231,7 +231,7 @@ To tackle this problem, we will use **SQL triggers** that will log any changes t
 	INSERT INTO play 
 	SELECT * FROM playstore;
 
-   );
+
 
 3. **Create the Trigger for Price Changes**  
    We create an **AFTER UPDATE** trigger on the `play` table that automatically logs any changes to the `Price` field into the `pricechagelog` table.
@@ -251,7 +251,7 @@ To tackle this problem, we will use **SQL triggers** that will log any changes t
 	// DELIMITER ;
 
 
-   );
+   
 
 4. **Testing the Trigger**  
    To test the trigger, we perform an update on the `Pric`e field of the `play` table and check if the change is logged correctly in the `pricechagelog` table.
@@ -262,7 +262,7 @@ To tackle this problem, we will use **SQL triggers** that will log any changes t
 	
 	SELECT * FROM play;
 
-   );
+   
 ![Question 5](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/5.png)
 
 
@@ -290,11 +290,52 @@ SELECT * FROM play;
 
 
 
+### Question 7. s a data person you are assigned the task of investigating the correlation between two numeric factors: app ratings and the quantity of reviews.
 
 
 
+### Steps:
+
+1. **Calculate the averages (means) of ratings and reviews**  
+
+   ```SQL
+	  SET @x = (SELECT ROUND(AVG(rating), 2) FROM playstore);
+	SET @y = (SELECT ROUND(AVG(reviews), 2) FROM playstore);
 
 
+   
+2. **Step 2: Create a temporary table to calculate (x - avg(x)) and (y - avg(y)) along with their squares**  
+   
+
+   ```SQL
+	  WITH temp AS (
+	    SELECT *, ROUND(rat * rat, 2) AS 'sqrt_x', ROUND(rev * rev, 2) AS 'sqrt_y'
+	    FROM (
+	        SELECT rating, @x, reviews, @y, 
+               ROUND((rating - @x), 2) AS rat, 
+               ROUND((reviews - @y), 2) AS rev  
+        FROM playstore
+    ) t1
+
+3. **Step 3: Calculate the numerator and denominator for Pearson Correlation**  
+
+   ```SQL
+	SELECT @numerator := ROUND(SUM(rat * rev), 2), 
+       @deno_1 := ROUND(SUM(sqrt_x), 2), 
+       @deno_2 := ROUND(SUM(sqrt_y), 2) 
+	FROM temp;
+
+4. **Step 4: Compute the Pearson correlation coefficient**  
+  
+   ```SQL
+	 SELECT ROUND(@numerator / SQRT(@deno_1 * @deno_2), 2) AS correlation;
+
+![Question 7](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/7.png)
+
+
+	observation: The Pearson correlation coefficient between app ratings and the quantity of reviews is **0.07**.
+	
+	This indicates a very weak positive correlation, meaning that there is a slight tendency for apps with more reviews to have slightly higher ratings, but the relationship is not strong.
 
 
 
