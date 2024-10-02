@@ -267,7 +267,25 @@ To tackle this problem, we will use **SQL triggers** that will log any changes t
 
 
 
+### Question 6. Your IT team has neutralized the threat; however, hackers have made some changes in the prices. Since you had measures in place to log the changes, you can now restore the correct data into the database.
 
+```SQL
+SET sql_safe_updates = 0;
+
+-- Dropping the price change log trigger
+DROP TRIGGER price_change_log;
+
+-- Updating the play table with the correct prices from pricechagelog
+UPDATE play t1
+JOIN pricechagelog t2 
+ON t1.`App` = t2.`App`
+SET t1.price = t2.old_price;
+
+-- Selecting all data from the play table to verify the update
+SELECT * FROM play;
+
+```
+![Question 4](https://github.com/shanto173/SQL_2024_case_study_02_Google_play_store/blob/main/images/6.png)
 
 
 
