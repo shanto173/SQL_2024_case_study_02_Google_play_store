@@ -154,7 +154,163 @@ from t1
 join t2 
 on t1.Category = t2.Category;
 
--- question 5
+
+
+
+
+
+
+
+/*
+
+Suppose you're a database administrator your databases have been
+hacked and hackers are changing price of certain apps on the database, 
+it is taking long for IT team to neutralize the hack, however you as a
+ responsible manager don’t want your data to be changed, do some measure 
+ where the changes in price can be recorded as you can’t stop hackers from making changes.
+
+*/
+# in order to solve this problem we have to use triggers  
+# in order to store the changing inforamtion i need to create a table 
+
+create table pricechagelog(
+app varchar(255),
+old_price decimal(10,2),
+new_price decimal(10,2),
+operation_type varchar(255),
+operation_date timestamp 
+);
+
+# make a duplicate database for playstore i don't want to change anyting to my dataset 
+
+create table play like playstore;
+
+# inserting value into play dataset 
+insert into play (
+select * from playstore
+);
+ 
+# Creating a trigger
+
+Delimiter //
+create TRIGGER price_change_log
+after update 
+on play 
+for each row
+begin 
+	insert into pricechagelog(app,old_price,new_price,operation_type,operation_date) values(
+    new.app,old.price,new.price,'update',current_timestamp);
+
+end;
+// Delimiter ;
+ 
+ 
+ update play t1
+ set price = 40 where `index` = 0;
+select * from play;
+
+
+
+
+
+
+/*
+
+Your IT team have neutralized the threat; however, hackers have made some changes in the prices, 
+but because of your measure you have noted the changes, 
+now you want correct data to be inserted into the database again.
+
+
+*/
+
+set sql_safe_updates = 0;
+
+drop trigger price_change_log;
+
+ update play t1
+ join pricechagelog t2 on t1.`App` = t2.`App`
+ set t1.price = t2.old_price;
+
+select * from play;
+
+select * from play;
+
+
+
+
+
+/*
+
+As a data person you are assigned the task of investigating the correlation 
+between two numeric factors: app ratings and the quantity of reviews.
+
+*/
+# (x-avg(x))  (y-avg(y))   (x-avg(x))2  (y-avg(y))2  
+
+set @x = (select round(avg(rating),2) from playstore);
+set @y = (select round(avg(reviews),2) from playstore);
+
+with temp as (
+select *,round(rat*rat,2) as 'sqrt_x', round(rev*rev,2) as 'sqrt_y' from(
+
+select rating , @x ,reviews,@y, round((rating-@x),2) as rat, round((reviews-@y),2) as rev  from playstore
+
+)t1
+
+)
+
+select @numerator := round(sum(rat*rev),2), @deno_1 := round(sum(sqrt_x),2),@deno_2 := round(sum(sqrt_y),2) from t;
+
+select round(@numerator/sqrt(@deno_1*@deno_2),2) as corrletion;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
