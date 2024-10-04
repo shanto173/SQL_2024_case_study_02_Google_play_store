@@ -15,7 +15,8 @@
 
 
 
-5 [SQL Case Study](#sql-case-study-question-answer)
+5. [SQL Case Study Questions](#sql-case-study-question-answer)
+   
 - [Question 1: Market Analyst Task](#question-1-youre-working-as-a-market-analyst-for-a-mobile-app-development-company-your-task-is-to-identify-the-most-promising-categories-top-5-for-launching-new-free-apps-based-on-their-average-ratings)
 - [Question 2: Revenue Analysis](#question-2-as-a-business-strategist-for-a-mobile-app-company-your-objective-is-to-pinpoint-the-three-categories-that-generate-the-most-revenue-from-paid-apps-this-calculation-is-based-on-the-product-of-the-app-price-and-its-number-of-installations)
 - [Question 3: Gaming Category Percentage](#question-3-as-a-data-analyst-for-a-gaming-company-youre-tasked-with-calculating-the-percentage-of-games-within-each-category-this-information-will-help-the-company-understand-the-distribution-of-gaming-apps-across-different-categories)
@@ -56,7 +57,7 @@ This case study aims to clean and analyze the **Google Play Store** dataset for 
 We removed the unnecessary column `Unnamed: 0` using the following SQL command:
 
 
-### 1.Dropping a column name `Unnamed: 0`;
+### 1. Dropping a column name `Unnamed: 0`;
 ```SQL
 # Droping a column 
 
@@ -81,7 +82,7 @@ MODIFY COLUMN reviews INTEGER;
 ### 3. Cleaning Installs Column
 The `Installs` column had symbols like `+` and `,` that were removed. We also converted the column from `TEXT` to `DOUBLE` for numerical analysis:
 
-```sql
+```SQL
 UPDATE playstore 
 SET installs = REPLACE(REPLACE(installs, '+', ''), ',', '');
 
